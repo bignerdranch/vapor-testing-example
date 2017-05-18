@@ -6,6 +6,11 @@ import XCTest
 class PostRequestTests: TestCase {
     let droplet = try! Droplet.testable()
     
+    override func setUp() {
+        super.setUp()
+        try! Post.all().forEach { try $0.delete() }
+    }
+    
     func testCreate() throws {
         let testContent = "test content"
         let requestBody = try Body(JSON(node: ["content": testContent]))
